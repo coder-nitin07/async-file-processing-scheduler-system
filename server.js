@@ -1,7 +1,8 @@
 const express = require('express');
 const app = express();
 const path = require('path');
-const upload = require('./middleware/upload');
+const upload = require('./middlewares/upload');
+const fileQueue = require('./queue/fileQueue');
 require('dotenv').config();
 
 // middleware
@@ -13,15 +14,21 @@ app.use('/test', (req, res)=>{
 });
 
 // upload route
-app.use('/upload', upload.single('file'), (req, res)=>{
+app.use('/upload', upload.single('file'), async (req, res)=>{
     if(!req.file){
         return res.status(400).json({ message: 'No file uploaded' });
     }
 
+    // add job to queue
+    const job = await fileQueue.add('process-file', {
+        filePath: req.file.path,
+        originalName: req.file.originalname
+    });
+
     res.status(200).json({
         message: 'File uploaded successfully',
+        jobId: job.id,
         file: req.file.filename,
-        path: req.file.path
     });
 });
 
