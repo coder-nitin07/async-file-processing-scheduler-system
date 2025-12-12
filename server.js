@@ -3,6 +3,7 @@ const app = express();
 const path = require('path');
 const upload = require('./middlewares/upload');
 const fileQueue = require('./queue/fileQueue');
+require("./queue/fileWorker");
 require('dotenv').config();
 
 // middleware
