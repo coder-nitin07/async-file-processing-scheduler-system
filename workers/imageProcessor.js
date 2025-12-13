@@ -55,6 +55,27 @@ console.log('Processing ',  workerData.filePath);
 
         // save bacl
         fs.writeFileSync(statsPath, JSON.stringify(stats, null, 2));
+
+
+
+        // daily stats
+        const dailyPath = path.join(__dirname, '../metrics/daily.json');
+
+        const today = new Date().toISOString().slice(0, 10);
+        const daily = JSON.parse(fs.readFileSync(dailyPath, 'utf-8'));
+
+        if(daily.date !== today){
+            daily.date = today;
+            daily.images = 0;
+            daily.originalBytes = 0;
+            daily.compressedBytes = 0;
+        }
+
+        daily.images += 1;
+        daily.originalBytes += originalSize;
+        daily.compressedBytes += compressedSize;
+        
+        fs.writeFileSync(dailyPath, JSON.stringify(daily, null, 2));
     } catch (err) {
         parentPort.postMessage({
             status: 'error',
