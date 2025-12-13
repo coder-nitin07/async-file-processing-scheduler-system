@@ -12,7 +12,7 @@ const fileWorker = new Worker(
         const workerPath = path.join(__dirname, '../workers/imageProcessor.js');
 
         return new Promise((resolve, reject) =>{
-            const { worker: ThreadWorker, workerData } = require('worker_threads');
+            const { Worker: ThreadWorker } = require('worker_threads');
 
             const thread = new ThreadWorker(workerPath, {
                 workerData: job.data        // send file and other details
