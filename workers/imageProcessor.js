@@ -3,10 +3,7 @@ const sharp = require('sharp');
 const path = require('path');
 const fs = require('fs');
 
-// // recieve data from fileWorker
-// const { filePath } = workerData;
-
-console.log("🧵 Worker thread started");
+console.log("Worker thread started");
 console.log('Processing ',  workerData.filePath);
 
 (async ()=> {
