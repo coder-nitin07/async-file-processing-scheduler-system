@@ -22,7 +22,7 @@ cron.schedule('*/10 * * * * *', ()=>{
 
 // For testing (comment in prod)
 // cron.schedule('*/30 * * * * *', () => {
-//   console.log('⏱️ Cron test running');
+//   console.log('Cron test running');
 // });
 
 
