@@ -36,6 +36,25 @@ console.log('Processing ',  workerData.filePath);
             status: 'completed',
             outputPath
         });
+
+
+        // 
+        const statsPath = path.join(__dirname,  '../metrics/stats.json');
+
+        // read file sizes
+        const originalSize = fs.statSync(inputPath).size;
+        const compressedSize = fs.statSync(inputPath).size;
+
+        // read existing stats
+        const stats = JSON.parse(fs.readFileSync(statsPath, 'utf-8'));
+
+        // update stats
+        stats.totalImages += 1;
+        stats.totalOriginalBytes += originalSize;
+        stats.totalCompressedBytes += compressedSize;
+
+        // save bacl
+        fs.writeFileSync(statsPath, JSON.stringify(stats, null, 2));
     } catch (err) {
         parentPort.postMessage({
             status: 'error',
