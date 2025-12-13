@@ -5,6 +5,7 @@ const upload = require('./middlewares/upload');
 const fileQueue = require('./queue/fileQueue');
 require("./queue/fileWorker");
 require("./queue/queueEvents");
+require('./cron')
 require('dotenv').config();
 
 // middleware

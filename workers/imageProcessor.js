@@ -43,7 +43,7 @@ console.log('Processing ',  workerData.filePath);
 
         // read file sizes
         const originalSize = fs.statSync(inputPath).size;
-        const compressedSize = fs.statSync(inputPath).size;
+        const compressedSize = fs.statSync(outputPath).size;
 
         // read existing stats
         const stats = JSON.parse(fs.readFileSync(statsPath, 'utf-8'));
